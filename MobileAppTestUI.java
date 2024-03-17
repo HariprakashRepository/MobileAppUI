@@ -47,10 +47,14 @@ public class MobileAppTestUI {
         }
     }
 
+    
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Transaction Manager");
-
         
+        ImageIcon icon = new ImageIcon("icon.jpg");
+        JFrame frame = new JFrame("Mobile App Testing Application");
+
+        Image image = icon.getImage();
+        frame.setIconImage(image);
         JLabel transactionNoLabel = new JLabel("Transaction No:");
         JLabel transactionNameLabel = new JLabel("Transaction Name:");
         JLabel xpathId1Label = new JLabel("XPath ID 1:");
@@ -61,6 +65,7 @@ public class MobileAppTestUI {
 
         JLabel UsernameLabel = new JLabel("Username:");
         JLabel PasswordLabel = new JLabel("Password:");
+        JCheckBox showPassCheckBox = new JCheckBox("Show Password");
         JLabel xpathUsernameLabel = new JLabel("XPath of Username:");
         JLabel xpathPasswordLabel = new JLabel("XPath of Password:");
         JLabel xpathClickButtonLabel = new JLabel("XPath of Click Button:");
@@ -75,11 +80,12 @@ public class MobileAppTestUI {
         JTextField assertionCheckField = new JTextField(15);
 
         JTextField UsernameField = new JTextField(15);
-        JTextField PasswordField = new JTextField(15);
+        JTextField PasswordField = new JPasswordField(15);
         JTextField xpathUsernameField = new JTextField(15);
         JTextField xpathPasswordField = new JTextField(15);
         JTextField xpathClickButtonField = new JTextField(15);
-
+        
+        
         
         JButton addButton = new JButton("Add Transaction");
 
@@ -117,6 +123,7 @@ public class MobileAppTestUI {
         addLabelAndField(panel, UsernameLabel, UsernameField, gbc);
         addLabelAndField(panel, PasswordLabel, PasswordField, gbc);
         addLabelAndField(panel, xpathUsernameLabel, xpathUsernameField, gbc);
+        panel.add(showPassCheckBox);
         addLabelAndField(panel, xpathPasswordLabel, xpathPasswordField, gbc);
         addLabelAndField(panel, xpathClickButtonLabel, xpathClickButtonField, gbc);
 
@@ -191,7 +198,17 @@ public class MobileAppTestUI {
                 }
             }
         });
-        
+        showPassCheckBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JCheckBox cb = (JCheckBox) e.getSource();
+                if (cb.isSelected()) {
+                    ((JPasswordField) PasswordField).setEchoChar((char) 0); // Show characters as plain text
+                } else {
+                    ((JPasswordField) PasswordField).setEchoChar('*'); // Mask characters with stars again
+                }
+            }
+        });
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -237,6 +254,7 @@ public class MobileAppTestUI {
         frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
 
         JPanel buttonPanel = new JPanel();
+        //buttonPanel.add(showPassCheckBox);
         buttonPanel.add(addButton);
         buttonPanel.add(resetButton);
         buttonPanel.add(runButton);
