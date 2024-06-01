@@ -321,7 +321,7 @@ public class maintest extends JFrame {
                 String inputFile1 = currentDir + "/payload/file.txt";
                 String inputFile2 = currentDir + "/payload/file2.txt";
                 String inputFile3 = currentDir + "/payload/file3.txt";
-                String outputFile = currentDir + "/mainclass3.java";
+                // String outputFile = currentDir + "/mainclass3.java";
                 // combineFiles(inputFile1, inputFile2, inputFile3, outputFile);
                 String outputFileName = JOptionPane.showInputDialog(null, "Enter the output file name:", "Output File",JOptionPane.PLAIN_MESSAGE);
                
