@@ -45,7 +45,7 @@ public class maintest extends JFrame {
                 writer.newLine();
             }
             System.out.println("Files combined and saved successfully!");
-            
+
         } catch (IOException e) {
             System.err.println("Error combining files: " + e.getMessage());
         }
@@ -194,10 +194,10 @@ public class maintest extends JFrame {
                             JOptionPane.showMessageDialog(null, "Compilation failed.");
                             return;
                         }
-        
+
                         // Get the class name
                         String className = selectedFile.getName().substring(0, selectedFile.getName().lastIndexOf('.'));
-        
+
                         // Execute the compiled class
                         ProcessBuilder executeBuilder = new ProcessBuilder("java", className);
                         executeBuilder.redirectErrorStream(true);
@@ -212,7 +212,7 @@ public class maintest extends JFrame {
                     }
                 }
             }
-        
+
             private void printProcessOutput(Process process) throws IOException {
                 try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
                     String line;
@@ -222,13 +222,12 @@ public class maintest extends JFrame {
                 }
             }
         });
-        
-        
+
         Savebutton.addActionListener(new ActionListener() {
             private String endTime;
-            
+
             @Override
-            
+
             public void actionPerformed(ActionEvent e) {
 
                 String deviceNameString = deviceNameField.getText();
@@ -323,7 +322,17 @@ public class maintest extends JFrame {
                 String inputFile2 = currentDir + "/payload/file2.txt";
                 String inputFile3 = currentDir + "/payload/file3.txt";
                 String outputFile = currentDir + "/mainclass3.java";
-                combineFiles(inputFile1, inputFile2, inputFile3, outputFile);
+                // combineFiles(inputFile1, inputFile2, inputFile3, outputFile);
+                String outputFileName = JOptionPane.showInputDialog(null, "Enter the output file name:", "Output File",JOptionPane.PLAIN_MESSAGE);
+               
+                if (outputFileName != null && !outputFileName.trim().isEmpty()) {
+                    // No need to declare 'outputFile' again
+                    String outputFilePath = currentDir + "/" + outputFileName.trim()+".java";
+                    combineFiles(inputFile1, inputFile2, inputFile3, outputFilePath);
+                    JOptionPane.showMessageDialog(null, "Files combined successfully into " + outputFilePath, "Success", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Output file name cannot be empty.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
 
             }
 
