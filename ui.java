@@ -20,7 +20,6 @@ import java.util.Map;
 import java.lang.reflect.Method;
 import java.lang.reflect.InvocationTargetException;
 import javax.swing.table.DefaultTableCellRenderer;
-import java.io.File;
 
 public class ui extends JFrame {
 
@@ -126,8 +125,8 @@ public class ui extends JFrame {
         JButton addButton = new JButton("Add Transaction");
         JButton resetButton = new JButton("Revert Transactions");
         JButton Savebutton = new JButton("Save");
+        JButton ChooseButton = new JButton("Choose MainClass");
         JButton ExecuteButton = new JButton("Execute");
-
         JTable table = new JTable(tableModel);
 
         tableModel.addColumn("Transaction No");
@@ -181,86 +180,8 @@ public class ui extends JFrame {
         gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.EAST;
         panel.add(addButton, gbc);
-        /* old button code
-        ExecuteButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String deviceNameString = deviceNameField.getText();
-                String appPackageString = setPackageField.getText();
-                String appActivityString = setActivityField.getText();
-                JFileChooser fileChooser = new JFileChooser();
-                fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-                int returnValue = fileChooser.showOpenDialog(null);
-                if (returnValue == JFileChooser.APPROVE_OPTION) {
-                    File selectedFile = fileChooser.getSelectedFile();
-                    System.out.println(selectedFile.getAbsolutePath());
-                    System.out.println(selectedFile.getName().substring(0, selectedFile.getName().lastIndexOf('.')));
-                    String classNameToCall = selectedFile.getName().substring(0, selectedFile.getName().lastIndexOf('.'));
-                }
-
-                //firstsave mainmethodMainclass=new firstsave();
-
-                // try {
-
-                //     mainmethodMainclass.main(deviceNameString,appPackageString,appActivityString);                          
-                // } catch (IOException e1) {
-                //     // TODO Auto-generated catch block
-                //     e1.printStackTrace();
-                // }
-
-                // catch (InterruptedException e1) {
-                //     // TODO Auto-generated catch block
-                //     e1.printStackTrace();
-                // }
-            }
-
-            private void printProcessOutput(Process process) throws IOException {
-                try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        System.out.println(line);
-                    }
-                }
-            }
-        });
-        */
-        //new execute button code
-        /* attempt failure 
-        ExecuteButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String deviceNameString = deviceNameField.getText();
-                String appPackageString = setPackageField.getText();
-                String appActivityString = setActivityField.getText();
-                JFileChooser fileChooser = new JFileChooser();
-                fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-                int returnValue = fileChooser.showOpenDialog(null);
-                if (returnValue == JFileChooser.APPROVE_OPTION) {
-                    File selectedFile = fileChooser.getSelectedFile();
-                    System.out.println(selectedFile.getAbsolutePath());
-                    String classNameToCall = selectedFile.getName().substring(0, selectedFile.getName().lastIndexOf('.'));
-                    
-                  
-                    classNameToCall mainmethodMainclass=new classNameToCall();
-
-                    try {
-    
-                        mainmethodMainclass.main(deviceNameString,appPackageString,appActivityString);                          
-                    } catch (IOException e1) {
-                        // TODO Auto-generated catch block
-                        e1.printStackTrace();
-                    }
-    
-                    catch (InterruptedException e1) {
-                        // TODO Auto-generated catch block
-                        e1.printStackTrace();
-                    }
-                }
-            }
-        });
-        */
-        // new code 2
-        ExecuteButton.addActionListener(new ActionListener() {
+        
+        ChooseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String deviceNameString = deviceNameField.getText();
@@ -309,9 +230,11 @@ public class ui extends JFrame {
                             System.err.println("Error combining files: " + p.getMessage());
                         }
                     
-                    temp mainmethodMainclass=new temp();
+                    ChooseButton.setForeground(Color.RED);
+                    ChooseButton.setText(classNameToCall);
+                    // temp mainmethodMainclass=new temp();
                    
-                    mainmethodMainclass.main(new String[]{deviceNameString,appPackageString,appActivityString});                          
+                    // mainmethodMainclass.main(new String[]{deviceNameString,appPackageString,appActivityString});                          
                     
                 }
             }
@@ -324,7 +247,16 @@ public class ui extends JFrame {
                 }
             }
         });
-        
+        ExecuteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String deviceNameString = deviceNameField.getText();
+                String appPackageString = setPackageField.getText();
+                String appActivityString = setActivityField.getText();
+                temp mainmethodMainclass=new temp();
+                mainmethodMainclass.main(new String[]{deviceNameString,appPackageString,appActivityString}); 
+            }
+        });
         Savebutton.addActionListener(new ActionListener() {
             private String endTime;
 
@@ -503,6 +435,7 @@ public class ui extends JFrame {
         buttonPanel.add(addButton);
         buttonPanel.add(resetButton);
         buttonPanel.add(Savebutton);
+        buttonPanel.add(ChooseButton);
         buttonPanel.add(ExecuteButton);
         frame.getContentPane().add(buttonPanel, BorderLayout.SOUTH);
 
